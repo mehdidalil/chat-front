@@ -16,6 +16,11 @@ const useInputState = (init) => {
 				}
 			}),
 			setError: (prop, errMessage) => setContent({...content, [prop]: {...content[prop], error: errMessage }}),
+			resetError: () => {
+				Object.keys(content).forEach((k, v) => {
+					setContent({...content, [k]: {...content[k], error: ""}});
+				})
+			}
 		}
 	};
 }

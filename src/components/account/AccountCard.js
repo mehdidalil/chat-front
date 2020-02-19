@@ -1,10 +1,7 @@
 import React from 'react';
-import { Paper, Typography, Avatar } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import { Logo } from '../ui';
+import { Paper, Typography, Avatar, makeStyles } from '@material-ui/core';
+import { initInputs, useInputState } from './utils';
 import AccountForm from './AccountForm';
-import { useInputState } from '../hooks';
-import { initInputs } from './utils';
 import AccountButtons from './AccountButtons';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
@@ -46,7 +43,6 @@ const AccountCard = (props) => {
 	const inputHandler = useInputState(initInputs(props.inputs));
 	return (
 		<Paper elevation={6} className={classes.paper}>
-			<Logo medium/>
 			<Avatar className={classes.avatar}>
 				<AccountCircleIcon />
 			</Avatar>

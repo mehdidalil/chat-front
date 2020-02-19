@@ -9,7 +9,7 @@ const AccountForm = (props) => {
 					key={input.id}
 					id={input.id}
 					label={input.label}
-					type="text"
+					type={input.type ? input.type : "text"}
 					error={input.error}
 					inputHandler={props.inputHandler}
 				/>
