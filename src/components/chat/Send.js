@@ -26,7 +26,7 @@ const Send = (props) => {
 			if (evt.ctrlKey === true)
 				setValue(value + "\n");
 			else
-				submit(value);
+				submit(value, setValue);			
 		}	
 	}
 	return (
@@ -44,7 +44,7 @@ const Send = (props) => {
 			variant="contained"
 			color="primary"
 			style={{ height: "40px"}}
-			onClick={() => submit(value)}
+			onClick={() => submit(value, setValue)}
 		>
 			Send
 		</Button>

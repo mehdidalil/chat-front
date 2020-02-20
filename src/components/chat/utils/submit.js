@@ -1,12 +1,13 @@
-import axios from 'axios';
+import { Socket } from '../../../api';
 
-const submit = (message) => {
+const submit = (value, setValue) => {
 	const userId = 1;
 
-	axios
-	.post("http://localhost:8000/message/create", { userId, content: message })
-	.then(response => console.log(response))
-	.catch(err => console.log(err));
+	Socket.emit("addMessage", {userId, content: value});
+	setValue("");
+	Socket.on("addMessageError", (err) => {
+		console.log(err);
+	});
 };
 
 export default submit;

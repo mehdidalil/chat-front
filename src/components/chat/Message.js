@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 		flexDirection: "row",
 	},
 	chip: {
-		padding: "10px 10px 10px 10px",
+		padding: "8px 8px 8px 8px",
 		marginBottom: "10px",
 		borderRadius:"15px",
 		background: theme.palette.grey[300],
@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
 		fontSize: "14px",
 		whiteSpace: 'normal',
   		wordWrap: 'break-word'
+	},
+	line: {
+		margin: "0px 0px 0px 0px",
 	}
 }));
 
@@ -39,7 +42,11 @@ const Message = (props) => {
 			<div className={classes.message}>
 				<Avatar src={avatar.src} className={classes.avatar} />
 				<div className={classes.chip}>
-					<div className={classes.content}>{props.message.content}</div>
+					<div className={classes.content}>
+						{props.message.content.split("\n").map((cont, i) => (
+						<p className={classes.line} key={i}>{cont}</p>
+						))}
+					</div>
 				</div>
 			</div>
 		</Container>

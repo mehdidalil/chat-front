@@ -1,8 +1,8 @@
 const addMessage = (data) => {
-	return ({
+	return {
 		type: "ADD_MESSAGE",
 		payload: data
-	});
+	};
 };
 
 export default addMessage;

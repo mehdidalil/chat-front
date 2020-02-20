@@ -4,7 +4,7 @@ import Message from './Message';
 import { red } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
 import { fetchMessages, addMessage } from '../../actions';
-import socketIOClient from "socket.io-client";
+import { Socket } from '../../api';
 
 const useStyles = makeStyles(theme => ({
 	cont: {
@@ -20,8 +20,11 @@ const MessageList = (props) => {
 
 	React.useEffect(() => {
 		props.fetchMessages();
+		Socket.on("newMessage", (socket) => {
+			props.addMessage(socket);
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	
 	React.useEffect(() => {
 		if (messagesEnd)
 			messagesEnd.scrollIntoView({ behavior: "smooth"});
