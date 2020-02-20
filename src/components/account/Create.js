@@ -18,7 +18,7 @@ const inputs = [
 	},
 	{
 		id: "passwordConfirm",
-		label: "Please confirm password",
+		label: "Confirm password",
 		type: "password"
 	},
 ];

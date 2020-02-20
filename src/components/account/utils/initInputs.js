@@ -2,10 +2,7 @@ const initInputs = (inputs) => {
 	const obj = {};
 
 	inputs.forEach(input => {
-		obj[input.id] = {
-			value: "",
-			error: ""
-		};
+		obj[input.id] = ""
 	});
 	return (obj);
 }

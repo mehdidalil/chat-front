@@ -1,4 +1,4 @@
-import { MessageApi } from '../api';
+import { MessageApi } from '../../api';
 
 const fetchMessages = () => {
 	return async function(dispatch, getState) {

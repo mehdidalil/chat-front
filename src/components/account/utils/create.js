@@ -1,21 +1,15 @@
 import { UserApi } from "../../../api";
 
-const create = (form) => {
-	form.bind.resetError();
-	const username = form.content.username.value;
-	const password = form.content.password.value;
-	const passwordConfirm = form.content.passwordConfirm.value;
-	const mail = form.content.mail.value;
+const create = (form, setError) => {
+	const { username, password, passwordConfirm, mail } = form.content;
 
 	if (password !== passwordConfirm)
-	{
-		form.bind.setError("passwordConfirm", "Not the same password");
-		return ;
-	}
+		return setError(`You did'nt enter the same password !`);
+		
 	UserApi
 	.post("/create", { username, password, mail })
 	.then(response => console.log(response))
-	.catch(err => console.log(err.response));
+	.catch(err => setError(err.response.data));
 };
 
 export default create;

@@ -3,7 +3,7 @@ const MessagesReducer = (state, action) => {
 		return ([]);
 	}
 	if (action.type === "FETCH_MESSAGES")
-		return [ ...state, ...action.payload];
+		return [ ...action.payload];
 	if (action.type === "ADD_MESSAGE")
 		return [ ...state, action.payload];
 	return state;

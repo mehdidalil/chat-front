@@ -11,7 +11,7 @@ const AccountForm = (props) => {
 					label={input.label}
 					type={input.type ? input.type : "text"}
 					error={input.error}
-					inputHandler={props.inputHandler}
+					formHandler={props.formHandler}
 				/>
 			))}
 		</form>

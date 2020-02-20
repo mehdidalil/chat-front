@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Typography, Avatar, makeStyles } from '@material-ui/core';
-import { initInputs, useInputState } from './utils';
+import { initInputs, useInputHandler } from './utils';
 import AccountForm from './AccountForm';
 import AccountButtons from './AccountButtons';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	avatar: {
 		backgroundColor: theme.palette.primary.main,
+		marginTop: theme.spacing(2),
 		marginBottom: theme.spacing(2),
 	},
 	typo: {
@@ -40,7 +41,9 @@ const useStyles = makeStyles(theme => ({
 
 const AccountCard = (props) => {
 	const classes = useStyles();
-	const inputHandler = useInputState(initInputs(props.inputs));
+	const formHandler = useInputHandler(initInputs(props.inputs));
+	const [error, setError] = React.useState("");
+
 	return (
 		<Paper elevation={6} className={classes.paper}>
 			<Avatar className={classes.avatar}>
@@ -52,13 +55,17 @@ const AccountCard = (props) => {
 			<div className={classes.form}>
 				<AccountForm
 					inputs={props.inputs}
-					inputHandler={inputHandler}
+					formHandler={formHandler}
 				/>
+			</div>
+			<div>
+				{error}
 			</div>
 			<div className={classes.actions}>
 				<AccountButtons
 					buttons={props.buttons}
-					form={inputHandler}
+					form={formHandler}
+					setError={setError}
 				/>
 			</div>
 		</Paper>

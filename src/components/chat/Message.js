@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 		padding: "5px 0px 5px 55px",
 	},
 	content: {
-		maxWidth: "70vw",
+		maxWidth: "60vw",
 		fontSize: "14px",
 		whiteSpace: 'normal',
   		wordWrap: 'break-word'
@@ -34,11 +34,10 @@ const useStyles = makeStyles(theme => ({
 
 const Message = (props) => {
 	const classes = useStyles();
-	const user = props.users.find(user => user.id === props.message.userId);
-	const avatar = props.avatars.find(avatar => avatar.id === user.avatarId);
+	const avatar = props.avatars.find(avatar => avatar.id === props.message.avatarId);
 	return (
 		<Container>
-			<div className={classes.name}>{user.username}</div>
+			<div className={classes.name}>{props.message.username}</div>
 			<div className={classes.message}>
 				<Avatar src={avatar.src} className={classes.avatar} />
 				<div className={classes.chip}>

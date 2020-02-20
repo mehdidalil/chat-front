@@ -1,11 +1,15 @@
-import { Socket } from '../../../api';
+import socketIOClient from 'socket.io-client';
 
-const submit = (value, setValue) => {
-	const userId = 1;
+const submit = (value, setValue, socket, user) => {
+	console.log(user);
 
-	Socket.emit("addMessage", {userId, content: value});
+	socket.emit("addMessage", {
+		content: value,
+		username: user.username,
+		avatarId: user.avatarId,
+	});
 	setValue("");
-	Socket.on("addMessageError", (err) => {
+	socket.on("addMessageError", (err) => {
 		console.log(err);
 	});
 };

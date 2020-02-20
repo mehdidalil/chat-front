@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, TextField, Button, makeStyles } from '@material-ui/core';
+import { Container, TextField, Button, makeStyles, Paper } from '@material-ui/core';
 import submit from './utils/submit';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	bar: {
@@ -26,30 +27,37 @@ const Send = (props) => {
 			if (evt.ctrlKey === true)
 				setValue(value + "\n");
 			else
-				submit(value, setValue);			
+				submit(value, setValue, props.socket, props.session.user);			
 		}	
 	}
 	return (
-		<Container className={classes.bar}>
-		<TextField
-			id="standard-multiline-flexible"
-			multiline
-			rowsMax="4"
-			value={value}
-			onChange={handleChangeValue}
-			onKeyPress={handleKeyPress}
-			className={classes.input}
-        />
-		<Button
-			variant="contained"
-			color="primary"
-			style={{ height: "40px"}}
-			onClick={() => submit(value, setValue)}
-		>
-			Send
-		</Button>
-		</Container>
+		<Paper elevation={4} className={classes.bar}>
+			<TextField
+				id="standard-multiline-flexible"
+				multiline
+				rowsMax="4"
+				value={props.session.token ? value : "You need to connect to chat !"}
+				onChange={handleChangeValue}
+				onKeyPress={handleKeyPress}
+				className={classes.input}
+				variant="outlined"
+				disabled={props.session.token ? false : true}
+			/>
+			<Button
+				variant="contained"
+				color="primary"
+				style={{ height: "55px"}}
+				onClick={() => submit(value, setValue, props.socket, props.session.user)}
+				disabled={props.session.token ? false : true}
+			>
+				Send
+			</Button>
+		</Paper>
 	);
 };
 
-export default Send;
+const mapStateToProps = (state) => ({
+	session: state.session
+});
+
+export default connect(mapStateToProps)(Send);

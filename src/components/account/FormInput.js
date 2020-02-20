@@ -9,17 +9,15 @@ const useStyles = makeStyles(theme => ({
 
 const FormInput = (props) => {
 	const classes = useStyles();
-	const { inputHandler } = props;
-	const { value, error } = inputHandler.content[props.id];
+	const { formHandler, errorHandler } = props;
+	const value = formHandler.content[props.id];
 	return (
 		<div className={classes.input}>
 			<TextField
-				error={error ? true : false}
-				helperText={error ? error : ""}
 				id={props.id}
 				label={props.label}
 				variant="outlined"
-				onChange={inputHandler.bind.onChange}
+				onChange={formHandler.onChange}
 				value={value}
 				inputProps={{maxLength: "64"}}
 				type={props.type}

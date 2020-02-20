@@ -1,16 +1,14 @@
 import React from 'react';
-import { Container, makeStyles } from '@material-ui/core';
+import { makeStyles, Paper } from '@material-ui/core';
 import Message from './Message';
-import { red } from '@material-ui/core/colors';
 import { connect } from 'react-redux';
 import { fetchMessages, addMessage } from '../../actions';
-import { Socket } from '../../api';
 
 const useStyles = makeStyles(theme => ({
 	cont: {
-		background: red[100],
+		background: theme.palette.grey[100],
 		overflowY: "scroll",
-		height: "80vh",
+		height: "100%",
 	}
 }));
 
@@ -20,18 +18,21 @@ const MessageList = (props) => {
 
 	React.useEffect(() => {
 		props.fetchMessages();
-		Socket.on("newMessage", (socket) => {
+
+		props.socket.on("newMessage", (socket) => {
 			props.addMessage(socket);
 		})
+		props.socket.open();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	React.useEffect(() => {
 		if (messagesEnd)
 			messagesEnd.scrollIntoView({ behavior: "smooth"});
 	});
 
 	return (
-		<Container id="message-list-container" className={classes.cont}>
+		<Paper id="message-list-container" className={classes.cont}>
 			{props.messages.map(message => (
 				<Message
 					key={message._id}
@@ -43,7 +44,7 @@ const MessageList = (props) => {
 				ref={(el) => { messagesEnd = el; }}
 			>
 			</div>
-		</Container>
+		</Paper>
 	);
 };
 

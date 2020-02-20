@@ -9,7 +9,7 @@ const AccountButtons = (props) => {
 					key={button.id}
 					id={button.id}
 					variant="outlined"
-					onClick={() => button.onClick(props.form)}
+					onClick={() => button.onClick(props.form, props.setError)}
 				>
 					{button.text}
 				</Button>

@@ -1,2 +1,3 @@
-export { default as fetchMessages } from './fetchMessages';
-export { default as addMessage } from './addMessage';
+export { default as fetchMessages } from './message/fetchMessages';
+export { default as addMessage } from './message/addMessage';
+export { default as authUser } from './session/authUser';

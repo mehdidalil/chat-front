@@ -1,6 +1,9 @@
 import React from 'react';
 import AccountCard from './AccountCard';
 import { login } from './utils';
+import { connect } from 'react-redux';
+import { authUser } from '../../actions';
+import { Redirect } from 'react-router-dom';
 
 const inputs = [
 	{
@@ -14,13 +17,13 @@ const inputs = [
 	},
 ];
 
-const buttons = [
+const buttons = (authUser) => ([
 	{
 		id: "login",
 		text: "Login",
-		onClick: login,
+		onClick: (form, setError) => login(form, setError, authUser),
 	},
-]
+])
 
 const Login = (props) => {
 	return (
@@ -29,9 +32,13 @@ const Login = (props) => {
 				title: "Login",
 			}}
 			inputs={inputs}
-			buttons={buttons}
+			buttons={buttons(props.authUser)}
 		/>
 	);
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+	session: state.session
+});
+
+export default connect(mapStateToProps, { authUser })(Login);
