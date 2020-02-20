@@ -11,7 +11,8 @@ import { Login, Create } from './components/account';
 const App = (props) => (
 	<Provider store={createStore(reducers, applyMiddleware(thunk))}>
 		<CssBaseline />
-		<Create />
+		<MessageList />
+		<Send />
 	</Provider>
 );
 
