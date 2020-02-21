@@ -67,7 +67,7 @@ const Test = (props) => {
 	return (
 		<Paper elevation={4} className={classes.cont}>
 			<Container className={classes.title}>
-				<Typography variant="h4" component="h4" align="center">{props.title}</Typography>
+				<Typography variant="h4" component="h4" align="center" color="primary">{props.title}</Typography>
 			</Container>
 			<Container className={classes.form}>
 				{Object.keys(formVal).map(key => (
@@ -80,6 +80,7 @@ const Test = (props) => {
 						variant="outlined"
 						type={props.types[key]}
 						className={classes.field}
+						color="primary"
 					/>
 				))}
 			</Container>
@@ -87,7 +88,7 @@ const Test = (props) => {
 				{error}
 			</div>
 			<Container className={classes.buttons}>
-				<Button onClick={submit} variant="outlined">OK</Button>
+				<Button onClick={submit} variant="outlined" color="primary">OK</Button>
 			</Container>
 			{popup ? <Popup info={popup} /> : ""}
 		</Paper>

@@ -17,11 +17,19 @@ const useStyles = makeStyles(theme => ({
 	avatar: {
 		width: theme.spacing(10),
 		height: theme.spacing(10),
+		"&:hover": {
+			filter: "sepia(30%)"
+		}
+	},
+	button: {
+		margin: "10px 0px 10px 0px",
 	},
 	buttons: {
 		display: "flex",
 		justifyContent: "center",
-		marginBottom: "10px",
+		flexDirection: "column",
+		alignItems: "center",
+		margin: "20px 0px 10px 0px",
 	},
 	select: {
 		background: fade(theme.palette.primary.main, 0.5),
@@ -79,7 +87,7 @@ const AvatarSelection = (props) => {
 			<Container className={classes.avatarContainer}>
 				<Grid container justify="center" spacing={2}>
 					{props.avatars.map(avatar => (
-						<Grid item key={avatar.id}>
+						<Grid item key={avatar.id} className={classes.gridHover}>
 							<Avatar
 								src={avatar.src}
 								className={classes.avatar}
@@ -91,10 +99,8 @@ const AvatarSelection = (props) => {
 				</Grid>
 			</Container>
 			<Container className={classes.buttons}>
-				<Button onClick={submit}>CHANGE PIC</Button>
-			</Container>
-			<Container className={classes.buttons}>
-				<Button onClick={props.deauthUser}>DELOG</Button>
+				<Button onClick={submit} variant="outlined" color="primary" className={classes.button}>CHANGE PIC</Button>
+				<Button onClick={props.deauthUser} variant="outlined" color="primary" className={classes.button}>DELOG</Button>
 			</Container>
 			{popup ? <Popup info={popup} /> : ""}
 		</div>
