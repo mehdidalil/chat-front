@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, Container, Avatar, makeStyles, Button, fade } from '@material-ui/core';
+import { Grid, Container, Avatar, makeStyles, Button, fade, AppBar, Tab, Toolbar } from '@material-ui/core';
 import { deauthUser, changeAvatar } from '../../actions';
 import { UserApi } from '../../api';
 import { Popup } from '../popup';
@@ -10,9 +10,11 @@ const useStyles = makeStyles(theme => ({
 	avatarContainer: {
 		width: "80vw",
 		maxWidth: "600px",
+		height: "200px",
 		display: "flex",
 		justifyContent: "center",
 		margin: "10px 10px 10px 10px",
+		overflowY: "auto"
 	},
 	avatar: {
 		width: theme.spacing(10),
