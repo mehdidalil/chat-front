@@ -1,16 +1,19 @@
 import React from 'react';
-import { Container, TextField, Button, makeStyles, Paper } from '@material-ui/core';
-import submit from './utils/submit';
+import { TextField, Button, makeStyles, Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	bar: {
 		padding: "10px",
 		display: "flex",
-		justifyContent: "space-between"
+		justifyContent: "space-between",
+		position: "fixed",
+		bottom: 0,
+		left: 0,
+		width: "100%"
 	},
 	input: {
-		width: "70%",
+		width: "90%",
 	}
 }));
 
@@ -27,9 +30,23 @@ const Send = (props) => {
 			if (evt.ctrlKey === true)
 				setValue(value + "\n");
 			else
-				submit(value, setValue, props.socket, props.session.user);			
+				submit();			
 		}	
 	}
+	const submit = () => {
+		props.socket.emit("addMessage", {
+			token: props.session.token,
+			message: {
+				content: value,
+				username: props.session.user.username,
+				avatarId: props.session.user.avatarId,
+			}
+		});
+		setValue("");
+		props.socket.on("addMessageError", (err) => {
+			console.log(err);
+		});
+	};
 	return (
 		<Paper elevation={4} className={classes.bar}>
 			<TextField
@@ -47,7 +64,7 @@ const Send = (props) => {
 				variant="contained"
 				color="primary"
 				style={{ height: "55px"}}
-				onClick={() => submit(value, setValue, props.socket, props.session.user)}
+				onClick={submit}
 				disabled={props.session.token ? false : true}
 			>
 				Send

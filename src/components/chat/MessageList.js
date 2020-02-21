@@ -18,7 +18,6 @@ const MessageList = (props) => {
 
 	React.useEffect(() => {
 		props.fetchMessages();
-
 		props.socket.on("newMessage", (socket) => {
 			props.addMessage(socket);
 		})
@@ -28,7 +27,7 @@ const MessageList = (props) => {
 
 	React.useEffect(() => {
 		if (messagesEnd)
-			messagesEnd.scrollIntoView({ behavior: "smooth"});
+			messagesEnd.scrollIntoView();
 	});
 
 	return (

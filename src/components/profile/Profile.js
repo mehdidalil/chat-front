@@ -1,6 +1,5 @@
 import React from 'react';
-import { Paper, Grid, Container, Avatar, makeStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { Paper, makeStyles } from '@material-ui/core';
 import AvatarSelection from './AvatarSelection';
 
 const useStyles = makeStyles(theme => ({

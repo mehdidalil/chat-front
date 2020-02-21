@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, Container, Avatar, makeStyles, Button } from '@material-ui/core';
-import { submit } from './utils';
-import { deauthUser } from '../../actions';
+import { Grid, Container, Avatar, makeStyles, Button, fade } from '@material-ui/core';
+import { deauthUser, changeAvatar } from '../../actions';
+import { UserApi } from '../../api';
+import { Popup } from '../popup';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	avatarContainer: {
@@ -21,15 +23,56 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: "center",
 		marginBottom: "10px",
 	},
+	select: {
+		background: fade(theme.palette.primary.main, 0.5),
+		borderRadius: "100px",
+		transition: "0.1s",
+	},
 }));
+
+const popups = {
+	ok: setPopup => ({
+		message: "Your profil has been updated !",
+		buttons: [
+			{ label: "OK", callback: () => setPopup(false) },
+			{ label: "GO TO CHAT", path: "/chat" }
+		],
+	}),
+	fail: setPopup => ({
+		message: "You must login before !",
+		buttons: [
+			{ label: "OK", path: "/login"},
+		],
+	}),
+};
 
 const AvatarSelection = (props) => {
 	const classes = useStyles();
-	const [avatarId, setAvatarId] = React.useState(0);
+	const [avatarId, setAvatarId] = React.useState("avatar0");
+	const [popup, setPopup] = React.useState(false);
 
-	const userId = props.session.user ? props.session.user.id : 0;
 	const handleChangeAvatar = (evt) => {
-		setAvatarId(evt.target.id);
+		const prevImg = document.querySelector(`#${avatarId}`);
+		if (prevImg)
+			prevImg.parentElement.parentElement.classList.remove(classes.select);
+		setAvatarId(`${evt.target.id}`);
+		const newImg = document.querySelector(`#${evt.target.id}`);
+		newImg.parentElement.parentElement.classList.add(classes.select);
+	};
+	const submit = () => {
+		UserApi
+		.post("/modifyAvatar", { avatarId: avatarId.replace('avatar', '') }, {
+			headers: {
+				'Authorization': `Bearer ${props.session.token}`,
+			},
+		})
+		.then(response => {
+			props.changeAvatar(response.data);
+			setPopup(popups.ok(setPopup));
+		})
+		.catch(err => {
+			setPopup(popups.fail(setPopup));
+		});
 	};
 	return (
 		<div>
@@ -40,7 +83,7 @@ const AvatarSelection = (props) => {
 							<Avatar
 								src={avatar.src}
 								className={classes.avatar}
-								imgProps={{id: avatar.id}}
+								imgProps={{id: `avatar${avatar.id}`}}
 								onClick={handleChangeAvatar}
 							/>
 						</Grid>
@@ -48,11 +91,12 @@ const AvatarSelection = (props) => {
 				</Grid>
 			</Container>
 			<Container className={classes.buttons}>
-				<Button onClick={() => submit(avatarId, userId, props.session.token)}>CHANGE PIC</Button>
+				<Button onClick={submit}>CHANGE PIC</Button>
 			</Container>
 			<Container className={classes.buttons}>
-				<Button onClick={() => props.deauthUser()}>DELOG</Button>
+				<Button onClick={props.deauthUser}>DELOG</Button>
 			</Container>
+			{popup ? <Popup info={popup} /> : ""}
 		</div>
 		
 	);
@@ -63,4 +107,4 @@ const mapStateToProps = (state) => ({
 	session: state.session,
 });
 
-export default connect(mapStateToProps, { deauthUser })(AvatarSelection);
+export default connect(mapStateToProps, { deauthUser, changeAvatar })(AvatarSelection);

@@ -1,7 +1,7 @@
 const AvatarsReducer = () => ([
 	{
 		id: 0,
-		src: "",
+		src: "https://www.fedoffice.fr/assets/default-avatar-d6a85b4201a7e290403b16023c00949c49abe0231474704b0d6016006445f517.png",
 	},
 	{
 		id: 1,

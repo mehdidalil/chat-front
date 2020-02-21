@@ -1,44 +1,60 @@
 import React from 'react';
-import AccountCard from './AccountCard';
-import { create } from './utils';
+import Form from './Form';
+import { UserApi } from '../../api';
 
-const inputs = [
-	{
-		id: "username",
-		label: "Username",
-	},
-	{
-		id: "mail",
-		label: "Mail",
-	},
-	{
-		id: "password",
-		label: "Password",
-		type: "password"
-	},
-	{
-		id: "passwordConfirm",
-		label: "Confirm password",
-		type: "password"
-	},
-];
+const inputs = {
+	username: "",
+	mail: "",
+	password: "",
+	passwordConfirm: "",
+};
 
-const buttons = [
-	{
-		id: "create",
-		text: "Create",
-		onClick: create,
-	},
-]
+const labels = {
+	username: "Username",
+	password: "Password",
+	passwordConfirm: "Confirm your password",
+	mail: "Mail",
+};
+
+const types = {
+	username: "text",
+	password: "password",
+	passwordConfirm: "password",
+	mail: "text",
+};
+
+const check = (form) => {
+	const { password, passwordConfirm } = form;
+
+	if (password !== passwordConfirm)
+		throw new Error(`You did'nt enter the same password !`);
+};
+
+const submit = (form) => {
+	const { username, password, passwordConfirm, mail } = form;
+
+	return UserApi.post("/create", { username, password, mail });
+};
+
+const popups = {
+	ok: setPopup => ({
+		message: "User successfully created ! Please login now !",
+		buttons: [
+			{ label: "OK", path: "/login" },
+		],
+	})
+};
 
 const Create = (props) => {
 	return (
-		<AccountCard
-			header={{
-				title: "Create",
-			}}
+		<Form
+			title="Create"
 			inputs={inputs}
-			buttons={buttons}
+			labels={labels}
+			types={types}
+			check={check}
+			submit={submit}
+			popups={popups}
 		/>
 	);
 };
