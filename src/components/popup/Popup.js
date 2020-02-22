@@ -5,11 +5,11 @@ import PopupButtons from './PopupButtons';
 
 const useStyles = makeStyles(theme => ({
 	back: {
-		width: "2000px",
-		height: "2000px",
 		position: "fixed",
 		top: 0,
 		left: 0,
+		right: 0,
+		bottom: 0,
 		background: "rgba(0,0,0,0.40)",
 		animation: "$appear 300ms",
 	},

@@ -10,13 +10,13 @@ const useStyles = makeStyles(theme => ({
 	cont: {
 		width: "100%",
 		padding: "0",
-		height: "80vh",
+		height: "70vh",
 	}
 }));
 
 const Chat = (props) => {
 	const classes = useStyles();
-	const [socket, setSocket] = React.useState(socketIOClient(`http://localhost:8080?token=${props.session.token}`));
+	const [socket, setSocket] = React.useState(socketIOClient(`http://192.168.1.17:8080?token=${props.session.token}`));
 	React.useEffect(() => {
 		socket.on("connection", (soc) => {
 			console.log("User connected !!");

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Paper, TextField, Container, makeStyles, Button, Typography } from '@material-ui/core';
-import { UserApi } from '../../api';
 import { Popup } from '../popup';
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const Test = (props) => {
+const Form = (props) => {
 	const classes = useStyles();
 	const [formVal, setFormVal] = React.useState(props.inputs);
 	const [popup, setPopup] = React.useState(false);
@@ -95,4 +94,4 @@ const Test = (props) => {
 	);
 };
 
-export default Test;
+export default Form;
