@@ -5,15 +5,14 @@ const checkAuth = (token) => {
 	return async (dispatch, getState) => {
 		if (getState().session.token)
 		{
-			let response = null;
 			try {
-				response = await UserApi.post("/token", {}, {
+				const response = await UserApi.post("/token", {}, {
 					headers: {
 						'Authorization': `Bearer ${getState().session.token}`,
 					},
 				});
 			}
-			catch (e){
+			catch (e) {
 				dispatch(deauthUser());
 			};
 		}

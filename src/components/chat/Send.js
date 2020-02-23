@@ -35,12 +35,9 @@ const Send = (props) => {
 	}
 	const submit = () => {
 		props.socket.emit("addMessage", {
-			token: props.session.token,
-			message: {
 				content: value,
 				username: props.session.user.username,
 				avatarId: props.session.user.avatarId,
-			}
 		});
 		setValue("");
 		props.socket.on("addMessageError", (err) => {

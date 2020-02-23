@@ -14,7 +14,7 @@ const SessionReducer = (state, action) => {
 	if (action.type === "DEAUTH_USER")
 		return initialState();
 	if (action.type === "CHANGE_AVATAR")
-		return { ...state, ["user"]: { ...state.user, avatarId: action.payload } };
+		return { ...state, "user": { ...state.user, avatarId: action.payload } };
 	return state;
 }
 

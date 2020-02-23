@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, makeStyles, Container, Typography, Button } from '@material-ui/core';
+import { Paper, makeStyles, Container, Typography } from '@material-ui/core';
 import { createPortal } from 'react-dom';
 import PopupButtons from './PopupButtons';
 

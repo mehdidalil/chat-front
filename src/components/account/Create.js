@@ -31,7 +31,7 @@ const check = (form) => {
 };
 
 const submit = (form) => {
-	const { username, password, passwordConfirm, mail } = form;
+	const { username, password, mail } = form;
 
 	return UserApi.post("/create", { username, password, mail });
 };

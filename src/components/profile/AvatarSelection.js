@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, Container, Avatar, makeStyles, Button, fade, AppBar, Tab, Toolbar } from '@material-ui/core';
+import { Grid, Container, Avatar, makeStyles, Button, fade } from '@material-ui/core';
 import { deauthUser, changeAvatar } from '../../actions';
 import { UserApi } from '../../api';
 import { Popup } from '../popup';
-import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	avatarContainer: {

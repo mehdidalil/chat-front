@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const Chat = (props) => {
 	const classes = useStyles();
-	const [socket, setSocket] = React.useState(socketIOClient(`http://192.168.1.17:8080?token=${props.session.token}`));
+	const [socket, setSocket] = React.useState(socketIOClient(`http://${window.location.hostname}:8080?token=${props.session.token}`));
 	React.useEffect(() => {
 		socket.on("connection", (soc) => {
 			console.log("User connected !!");
@@ -24,9 +24,10 @@ const Chat = (props) => {
 		socket.on("invalidToken", (soc) => {
 			props.checkAuth();
 		})
-		return function cleanup(soc) {
+		return function cleanup() {
 			socket.emit("disconnection");
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
 		<Container className={classes.cont}>
