@@ -2,9 +2,9 @@ import React from 'react';
 import MessageList from './MessageList';
 import Send from './Send';
 import { makeStyles, Container } from '@material-ui/core';
-import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
-import { checkAuth } from '../../actions';
+import { addMessage } from '../../actions';
+import socket from '../../api/socket';
 
 const useStyles = makeStyles(theme => ({
 	cont: {
@@ -16,23 +16,23 @@ const useStyles = makeStyles(theme => ({
 
 const Chat = (props) => {
 	const classes = useStyles();
-	const [socket, setSocket] = React.useState(socketIOClient(`http://${window.location.hostname}:8080?token=${props.session.token}`));
 	React.useEffect(() => {
-		socket.on("connection", (soc) => {
-			console.log("User connected !!");
-		})
-		socket.on("invalidToken", (soc) => {
-			props.checkAuth();
-		})
+		const newMessage = (data) => {
+			props.addMessage(data);
+		};
+		socket.on("newMessage", newMessage);
+		socket.open();
 		return function cleanup() {
-			socket.emit("disconnection");
+			socket.removeListener("newMessage", newMessage);
+			socket.disconnect();
+			console.log("User disconnected");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []);
 	return (
 		<Container className={classes.cont}>
-			<MessageList socket={socket}/>
-			<Send socket={socket}/>
+			<MessageList />
+			<Send />
 		</Container>
 	);
 };
@@ -41,4 +41,4 @@ const mapStateToProps = state => ({
 	session: state.session,
 });
 
-export default connect(mapStateToProps, { checkAuth })(Chat);
+export default connect(mapStateToProps, { addMessage })(Chat);

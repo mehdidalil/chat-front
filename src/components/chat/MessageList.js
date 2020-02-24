@@ -18,10 +18,6 @@ const MessageList = (props) => {
 
 	React.useEffect(() => {
 		props.fetchMessages();
-		props.socket.on("newMessage", (socket) => {
-			props.addMessage(socket);
-		})
-		props.socket.open();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -29,7 +25,6 @@ const MessageList = (props) => {
 		if (messagesEnd)
 			messagesEnd.scrollIntoView();
 	});
-
 	return (
 		<Paper id="message-list-container" className={classes.cont}>
 			{props.messages.map(message => (

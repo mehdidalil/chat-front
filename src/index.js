@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom';
 import { Routing } from './components';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import reducers from './reducers';
+import store from './store';
 
 const App = (props) => (
-	<Provider store={createStore(reducers, applyMiddleware(thunk))}>
+	<Provider store={store}>
 		<CssBaseline />
 		<Routing />
 	</Provider>

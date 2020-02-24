@@ -1,6 +1,8 @@
 import React from 'react';
 import { TextField, Button, makeStyles, Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { MessageApi } from '../../api/';
+import { checkAuth } from '../../actions';
 
 const useStyles = makeStyles(theme => ({
 	bar: {
@@ -34,15 +36,14 @@ const Send = (props) => {
 		}	
 	}
 	const submit = () => {
-		props.socket.emit("addMessage", {
-				content: value,
-				username: props.session.user.username,
-				avatarId: props.session.user.avatarId,
-		});
+		MessageApi.post("/create", { content: value }, {
+			headers: {
+				'Authorization': `Bearer ${props.session.token}`,
+			}
+		})
+		.then(response => {})
+		.catch(e => props.checkAuth());
 		setValue("");
-		props.socket.on("addMessageError", (err) => {
-			console.log(err);
-		});
 	};
 	return (
 		<Paper elevation={4} className={classes.bar}>
@@ -74,4 +75,4 @@ const mapStateToProps = (state) => ({
 	session: state.session
 });
 
-export default connect(mapStateToProps)(Send);
+export default connect(mapStateToProps, { checkAuth })(Send);
