@@ -60,6 +60,7 @@ const Form = (props) => {
 			});
 		}
 		catch (e) {
+			console.log(e);
 			setError(e.message);
 		}
 	};

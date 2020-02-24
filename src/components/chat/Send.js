@@ -42,7 +42,10 @@ const Send = (props) => {
 			}
 		})
 		.then(response => {})
-		.catch(e => props.checkAuth());
+		.catch(e => {
+			console.log(e);
+			props.checkAuth();
+		});
 		setValue("");
 	};
 	return (

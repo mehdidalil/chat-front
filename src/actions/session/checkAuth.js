@@ -6,7 +6,7 @@ const checkAuth = (token) => {
 		if (getState().session.token)
 		{
 			try {
-				const response = await UserApi.post("/token", {}, {
+				await UserApi.post("/token", {}, {
 					headers: {
 						'Authorization': `Bearer ${getState().session.token}`,
 					},

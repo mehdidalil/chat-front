@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
 		background: theme.palette.grey[300],
 	},
 	name: {
-		padding: "5px 0px 5px 55px",
+		padding: "5px 0px 5px 50px",
+		fontSize: "12px",
 	},
 	content: {
 		maxWidth: "60vw",
@@ -34,10 +35,13 @@ const useStyles = makeStyles(theme => ({
 
 const Message = (props) => {
 	const classes = useStyles();
-	const avatar = props.avatars.find(avatar => avatar.id === props.message.avatarId);
+	let user = props.users.find(u => u.id === parseInt(props.message.userId));
+	user = user ? user : { username: "New User", id: 0, avatarId: 0 };
+	console.log(user);
+	const avatar = props.avatars.find(avatar => avatar.id === user.avatarId);
 	return (
 		<Container>
-			<div className={classes.name}>{props.message.username}</div>
+			<div className={classes.name}>{user.username}</div>
 			<div className={classes.message}>
 				<Avatar src={avatar.src} className={classes.avatar} />
 				<div className={classes.chip}>

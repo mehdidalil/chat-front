@@ -10,22 +10,20 @@ const useStyles = makeStyles(theme => ({
 	cont: {
 		width: "100%",
 		padding: "0",
-		height: "70vh",
+		height: "80vh",
 	}
 }));
 
 const Chat = (props) => {
 	const classes = useStyles();
 	React.useEffect(() => {
-		const newMessage = (data) => {
-			props.addMessage(data);
-		};
+		const newMessage = data => props.addMessage(data);
 		socket.on("newMessage", newMessage);
 		socket.open();
 		return function cleanup() {
 			socket.removeListener("newMessage", newMessage);
 			socket.disconnect();
-			console.log("User disconnected");
+			console.log("socket: user disconnected");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

@@ -11,19 +11,16 @@ const SessionReducer = (state, action) => {
 	if (action.type === "AUTH_USER")
 	{
 		socket.io.opts.query = { token: action.payload };
-		const newState = { token: action.payload, user: JSON.parse(window.atob(action.payload.split('.')[1]))};
-		return newState;
+		return ({
+			token: action.payload,
+			user: JSON.parse(window.atob(action.payload.split('.')[1]))
+		});
 	}
 	if (action.type === "DEAUTH_USER")
 	{
 		socket.io.opts.query = {}
 		return initialState();
-	}
-	if (action.type === "CHANGE_AVATAR")
-	{
-		return { ...state, "user": { ...state.user, avatarId: action.payload } };
-	}
-		
+	}	
 	return state;
 }
 

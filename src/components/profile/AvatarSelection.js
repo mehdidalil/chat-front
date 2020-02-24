@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Container, Avatar, makeStyles, Button, fade } from '@material-ui/core';
-import { deauthUser, changeAvatar } from '../../actions';
+import { deauthUser } from '../../actions';
 import { UserApi } from '../../api';
 import { Popup } from '../popup';
 
@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
 		display: "flex",
 		justifyContent: "center",
 		margin: "10px 10px 10px 10px",
+		paddingTop: "10px",
 		overflowY: "auto"
 	},
 	avatar: {
@@ -75,12 +76,10 @@ const AvatarSelection = (props) => {
 				'Authorization': `Bearer ${props.session.token}`,
 			},
 		})
-		.then(response => {
-			props.changeAvatar(response.data);
-			setPopup(popups.ok(setPopup));
-		})
+		.then(response => setPopup(popups.ok(setPopup)))
 		.catch(err => {
-			setPopup(popups.fail(setPopup));
+			console.log(err);
+			setPopup(popups.fail(setPopup))
 		});
 	};
 	return (
@@ -114,4 +113,4 @@ const mapStateToProps = (state) => ({
 	session: state.session,
 });
 
-export default connect(mapStateToProps, { deauthUser, changeAvatar })(AvatarSelection);
+export default connect(mapStateToProps, { deauthUser })(AvatarSelection);

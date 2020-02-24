@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Paper } from '@material-ui/core';
 import Message from './Message';
 import { connect } from 'react-redux';
-import { fetchMessages, addMessage } from '../../actions';
+import { fetchMessages, fetchUsers } from '../../actions';
 
 const useStyles = makeStyles(theme => ({
 	cont: {
@@ -18,6 +18,7 @@ const MessageList = (props) => {
 
 	React.useEffect(() => {
 		props.fetchMessages();
+		props.fetchUsers();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -27,12 +28,13 @@ const MessageList = (props) => {
 	});
 	return (
 		<Paper id="message-list-container" className={classes.cont}>
-			{props.messages.map(message => (
-				<Message
-					key={message._id}
-					message={message}
-				/>
-			))}
+			{props.messages.map(message => {
+				return (
+					<Message
+						key={message._id}
+						message={message}
+					/>
+			)})}
 			<div
 				style={{ float:"left", clear: "both" }}
 				ref={(el) => { messagesEnd = el; }}
@@ -43,7 +45,7 @@ const MessageList = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	messages: state.messages
+	messages: state.messages,
 });
 
-export default connect(mapStateToProps, { fetchMessages, addMessage })(MessageList);
+export default connect(mapStateToProps, { fetchMessages, fetchUsers })(MessageList);

@@ -3,4 +3,4 @@ export { default as addMessage } from './message/addMessage';
 export { default as authUser } from './session/authUser';
 export { default as deauthUser } from './session/deauthUser';
 export { default as checkAuth } from './session/checkAuth';
-export { default as changeAvatar } from './session/changeAvatar';
+export { default as fetchUsers } from './users/fetchUsers';
