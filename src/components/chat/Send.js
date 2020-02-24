@@ -36,7 +36,7 @@ const Send = (props) => {
 		}	
 	}
 	const submit = () => {
-		MessageApi.post("/create", { content: value }, {
+		MessageApi.post("/", { content: value }, {
 			headers: {
 				'Authorization': `Bearer ${props.session.token}`,
 			}

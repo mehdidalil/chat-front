@@ -33,7 +33,7 @@ const check = (form) => {
 const submit = (form) => {
 	const { username, password, mail } = form;
 
-	return UserApi.post("/create", { username, password, mail });
+	return UserApi.post("/", { username, password, mail });
 };
 
 const popups = {
